@@ -8,7 +8,7 @@ The extension targets GNOME Shell 51. It uses Open-Meteo for current conditions 
 
 ## Why I built it
 
-My girlfriend and I are in a long-distance relationship, and I wanted to see her local time and weather alongside mine. GNOME did not offer a way to show two clocks and two weather locations together, so I made this extension.
+I wanted to see my gf local time and weather alongside mine. GNOME did not offer a way to show two clocks and two weather locations together, so I made this extension.
 
 ## Features
 
