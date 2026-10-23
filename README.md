@@ -2,6 +2,8 @@
 
 City Clock & Weather puts local times and current weather for your chosen cities in one GNOME top-panel indicator. You can choose a display name for each city while keeping its weather location and time zone separate.
 
+![GNOME top panel showing local times and weather for Koko and Bến Cát, separated by a vertical divider.](screenshots/city-clock-weather.png)
+
 The extension targets GNOME Shell 51. It uses Open-Meteo for current conditions and needs no API key.
 
 ## Why I built it
