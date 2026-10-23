@@ -1,0 +1,8 @@
+/node_modules/
+/dist/
+/schemas/gschemas.compiled
+/.verify/
+core
+core.*
+*.swp
+*~

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <enum id="org.gnome.shell.extensions.cityclockweather.clock-format">
+    <value nick="system" value="0"/>
+    <value nick="12h" value="1"/>
+    <value nick="24h" value="2"/>
+  </enum>
+  <enum id="org.gnome.shell.extensions.cityclockweather.panel-section">
+    <value nick="left" value="0"/>
+    <value nick="center" value="1"/>
+    <value nick="right" value="2"/>
+  </enum>
+  <schema id="org.gnome.shell.extensions.cityclockweather" path="/org/gnome/shell/extensions/cityclockweather/">
+    <key name="cities" type="s">
+      <default>'London:London:51.5072:-0.1276:Europe/London:1:1:1'</default>
+      <summary>City definitions</summary>
+      <description>Each entry is display name:weather location:latitude:longitude:time zone:show clock:show weather:show name. Entries are separated by semicolons. Flags are 1 or 0.</description>
+    </key>
+    <key name="refresh-minutes" type="i">
+      <range min="5" max="240"/>
+      <default>20</default>
+      <summary>Weather refresh interval</summary>
+      <description>Minutes between weather updates.</description>
+    </key>
+    <key name="show-icon" type="b"><default>true</default><summary>Show weather icons</summary><description>Show a condition symbol after each city's weather.</description></key>
+    <key name="fahrenheit" type="b"><default>false</default><summary>Use Fahrenheit</summary><description>Show temperatures in Fahrenheit and wind in miles per hour.</description></key>
+    <key name="box" enum="org.gnome.shell.extensions.cityclockweather.panel-section"><default>'right'</default><summary>Panel section</summary><description>Place the indicator at the left, center or right of the panel.</description></key>
+    <key name="position-index" type="i"><range min="0" max="20"/><default>0</default><summary>Panel position</summary><description>Zero-based position inside the selected panel section.</description></key>
+    <key name="show-city-labels" type="b"><default>true</default><summary>Show display names</summary><description>Show each custom city display name in the panel.</description></key>
+    <key name="clock-format" enum="org.gnome.shell.extensions.cityclockweather.clock-format"><default>'system'</default><summary>Clock format</summary><description>Follow system, 12-hour or 24-hour clock formatting.</description></key>
+    <key name="follow-accent" type="b"><default>true</default><summary>Follow system accent color</summary><description>Use GNOME's accent color for weather icons.</description></key>
+    <key name="custom-color" type="s"><default>'#8aadf4'</default><summary>Custom icon color</summary><description>Hex color used when system accent following is disabled.</description></key>
+    <key name="opacity" type="i"><range min="0" max="100"/><default>100</default><summary>Indicator opacity</summary><description>Panel indicator opacity as a percentage.</description></key>
+  </schema>
+</schemalist>

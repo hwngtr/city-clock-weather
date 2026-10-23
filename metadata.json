@@ -1,0 +1,9 @@
+{
+  "uuid": "city-clock-weather@hwngtr.github.io",
+  "name": "City Clock & Weather",
+  "description": "Shows local time and current weather for multiple cities in one panel indicator. Weather data comes from Open-Meteo.",
+  "shell-version": ["51"],
+  "url": "https://github.com/hwngtr/city-clock-weather",
+  "version": 1,
+  "settings-schema": "org.gnome.shell.extensions.cityclockweather"
+}

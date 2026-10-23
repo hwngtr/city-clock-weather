@@ -1,0 +1,12 @@
+{
+  "name": "city-clock-weather",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check:js": "node --check extension.js && node --check prefs.js && node --check cities.js && node --check weather.js && node --check geocoding.js && node --check tests/cities.test.js && node --check tests/weather.test.js && node --check tests/geocoding.test.js",
+    "check:schema": "glib-compile-schemas --strict --dry-run schemas",
+    "check": "npm run check:js && npm run check:schema && npm test",
+    "package": "bash scripts/package.sh"
+  }
+}
