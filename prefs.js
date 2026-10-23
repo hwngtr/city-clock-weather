@@ -216,26 +216,11 @@ export default class CityClockWeatherPreferences extends ExtensionPreferences {
         position.connectValue(value => settings.set_int('position-index', value));
         settings.connect('changed::position-index', () => position.setValue(settings.get_int('position-index')));
 
+        let cityControls = this._buildCityControls(page, settings, settings.get_string('cities'));
+        let definitionKey = cityDefinitionKey(settings.get_string('cities'));
+
         const displayGroup = new Adw.PreferencesGroup({title: _('Display')});
         page.add(displayGroup);
-
-        let cityControls = this._buildCityControls(page, displayGroup, settings, settings.get_string('cities'));
-        let definitionKey = cityDefinitionKey(settings.get_string('cities'));
-        settings.connect('changed::cities', () => {
-            const raw = settings.get_string('cities');
-            if (cityEntry.text !== raw)
-                cityEntry.text = raw;
-            apply.sensitive = false;
-
-            const nextDefinitionKey = cityDefinitionKey(raw);
-            if (nextDefinitionKey !== definitionKey) {
-                cityControls.groups.forEach(group => page.remove(group));
-                cityControls = this._buildCityControls(page, displayGroup, settings, raw);
-                definitionKey = nextDefinitionKey;
-            } else {
-                cityControls.sync(raw);
-            }
-        });
 
         this._addSwitch(displayGroup, settings, 'show-city-labels', _('Show display names'), _('Show the custom name for each city in the panel'));
         this._addSwitch(displayGroup, settings, 'show-icon', _('Show weather icons'), _('Show a symbol for current conditions'));
@@ -278,9 +263,28 @@ export default class CityClockWeatherPreferences extends ExtensionPreferences {
         refreshGroup.add(refresh.row);
         refresh.connectValue(value => settings.set_int('refresh-minutes', value));
         settings.connect('changed::refresh-minutes', () => refresh.setValue(settings.get_int('refresh-minutes')));
+
+        settings.connect('changed::cities', () => {
+            const raw = settings.get_string('cities');
+            if (cityEntry.text !== raw)
+                cityEntry.text = raw;
+            apply.sensitive = false;
+
+            const nextDefinitionKey = cityDefinitionKey(raw);
+            if (nextDefinitionKey !== definitionKey) {
+                const groupsAfterCities = [displayGroup, timeGroup, refreshGroup];
+                cityControls.groups.forEach(group => page.remove(group));
+                groupsAfterCities.forEach(group => page.remove(group));
+                cityControls = this._buildCityControls(page, settings, raw);
+                groupsAfterCities.forEach(group => page.add(group));
+                definitionKey = nextDefinitionKey;
+            } else {
+                cityControls.sync(raw);
+            }
+        });
     }
 
-    _buildCityControls(page, beforeGroup, settings, raw) {
+    _buildCityControls(page, settings, raw) {
         const groups = [];
         const switches = [];
         parseCityList(raw).forEach(city => {
@@ -288,7 +292,7 @@ export default class CityClockWeatherPreferences extends ExtensionPreferences {
                 title: city.displayName,
                 description: `${city.weatherName} · ${city.timeZone}`,
             });
-            cityGroup.insert_before(page, beforeGroup);
+            page.add(cityGroup);
             groups.push(cityGroup);
 
             [
