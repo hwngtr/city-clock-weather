@@ -20,16 +20,19 @@ I wanted to see my gf local time and weather alongside mine. GNOME did not offer
 - Set indicator opacity and weather refresh interval.
 - View feels-like temperature, humidity, wind speed, and update time in the menu.
 
-## Install a release bundle
+## Install
 
-Download the `city-clock-weather@hwngtr.github.io.shell-extension.zip` asset from a GitHub release. Then run:
+There is no release bundle yet, so build the extension from source. You need GNOME Shell 51, Node.js 20 or newer, GLib schema tools, and `gnome-extensions`.
 
 ```sh
-gnome-extensions install --force city-clock-weather@hwngtr.github.io.shell-extension.zip
+git clone https://github.com/hwngtr/city-clock-weather.git
+cd city-clock-weather
+make package
+gnome-extensions install --force dist/city-clock-weather@hwngtr.github.io.shell-extension.zip
 gnome-extensions enable city-clock-weather@hwngtr.github.io
 ```
 
-If the extension does not appear after installation, log out and log in again. Open the settings from the indicator menu or run:
+After installation, open the indicator menu and choose **Settings** to add your cities. You can also open the settings from a terminal:
 
 ```sh
 gnome-extensions prefs city-clock-weather@hwngtr.github.io
@@ -62,14 +65,13 @@ When you search for a place, the extension sends the search text to `geocoding-a
 
 ## Build and test
 
-Use GNOME Shell 51, Node.js 20 or newer, GLib schema tools, and `gnome-extensions` to run all checks and build a release bundle:
+To run the checks, use Node.js 20 or newer and GLib schema tools:
 
 ```sh
 make check
-make package
 ```
 
-After installing and enabling the bundle in GNOME, run `make verify` to check that the extension is active and GNOME Shell reports no extension errors.
+Run `make verify` after installation to confirm that GNOME loaded the extension without errors. If the extension does not appear on Wayland, log out and log in again.
 
 The bundle is written to `dist/city-clock-weather@hwngtr.github.io.shell-extension.zip`. It contains the extension files and schema XML, not the test suite or repository documentation.
 
